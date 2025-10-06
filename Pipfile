@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+catboost = "*"
+lightgbm = "*"
+tensorflow = "*"
+numpy = "<2"
+torch = "*"
+torchvision = "*"
+torchaudio = "*"
+torch-geometric = "*"
+networkx = "*"
+matplotlib = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
