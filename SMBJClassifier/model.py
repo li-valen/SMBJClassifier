@@ -571,10 +571,23 @@ def runClassifier(approach, data, RR, group, num_group, sampleNum):
             # Random Forest model
             model = RandomForestClassifier(n_estimators=200, max_depth=10, random_state=42)
         elif approach == 6:
-            # K-Means clustering
-            model = KMeans(n_clusters=8, random_state=42)
+            # K-Means clustering - Fixed version
+            model = KMeans(n_clusters=3, random_state=42)  # Changed from 8 to 3 to match num_group
             model.fit(Train_Data)
             predictedLabels = model.predict(Test_Data)
+            
+            # Map clusters to actual labels using training data
+            cluster_to_label = {}
+            for cluster_id in range(3):
+                cluster_mask = model.labels_ == cluster_id
+                if np.any(cluster_mask):
+                    # Find the most common true label in this cluster
+                    true_labels_in_cluster = Train_Label[cluster_mask]
+                    cluster_to_label[cluster_id] = np.bincount(true_labels_in_cluster).argmax()
+            
+            # Map predicted cluster IDs to actual labels
+            predictedLabels = np.array([cluster_to_label.get(cluster_id, 0) for cluster_id in predictedLabels])
+            
             conf_mat = conf_mat + confusion_matrix(Test_Label, predictedLabels, labels=np.arange(num_group))
             continue  # Skip the rest of the loop as K-Means does not use Train_Label
         elif approach == 7:
