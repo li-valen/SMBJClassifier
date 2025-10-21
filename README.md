@@ -67,7 +67,7 @@ The system implements 8 different classification approaches:
 - Excellent performance with ensemble learning
 
 #### Approach A6: K-Means Clustering
-- **Accuracy**: ~80-85% (after fix)
+- **Accuracy**: ~80-85%
 - Unsupervised clustering approach with proper cluster-to-label mapping
 - Fixed implementation uses correct number of clusters (3) matching DNA variants
 
